@@ -28,19 +28,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-                <configuration>
-                    <classifier>exec</classifier>
-                    <executable>true</executable>
-                    <layout>ZIP</layout>
-                    <embeddedLaunchScriptProperties>
-                        <mode>service</mode>
-                    </embeddedLaunchScriptProperties>
-                    <fork>false</fork>
-                    <environmentVariables>
-                        <LOG_PATH>${project.build.directory}/logs</LOG_PATH>
-                    </environmentVariables>
-                </configuration>
             </plugin>
         </plugins>
     </build>
