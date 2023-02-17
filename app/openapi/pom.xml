@@ -35,36 +35,43 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.openapitools</groupId>
-                <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>${open-api-generator.version}</version>
-                <executions>
-                    <execution>
-                        <id>generate-models-bookapi</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${basedir}/src/main/resources/open-api.yaml</inputSpec>
-                            <generatorName>spring</generatorName>
-                            <library>spring-boot</library>
-                            <modelPackage>com.codingmill.openapi.data</modelPackage>
-                            <apiPackage>com.codingmill.openapi.controller</apiPackage>
-                            <generateSupportingFiles>true</generateSupportingFiles>
-                            <configOptions>
-                                <interfaceOnly>true</interfaceOnly>
-                                <useBeanValidation>true</useBeanValidation>
-                                <performBeanValidation>true</performBeanValidation>
-                            </configOptions>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
-
+    <profiles>
+        <profile>
+            <id>generate-api</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.openapitools</groupId>
+                        <artifactId>openapi-generator-maven-plugin</artifactId>
+                        <version>${open-api-generator.version}</version>
+                        <executions>
+                            <execution>
+                                <id>generate-models-bookapi</id>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <output>${project.basedir}/gensrc</output>
+                                    <inputSpec>${basedir}/src/main/resources/open-api.yaml</inputSpec>
+                                    <generatorName>kotlin-spring</generatorName>
+                                    <library>spring-boot</library>
+                                    <modelPackage>com.codingmill.bookapi.generated.data</modelPackage>
+                                    <apiPackage>com.codingmill.bookapi.generated.controller</apiPackage>
+                                    <generateSupportingFiles>false</generateSupportingFiles>
+                                    <additionalProperties>disableExamples=true</additionalProperties>
+                                    <configOptions>
+                                        <enumPropertyNaming>UPPERCASE</enumPropertyNaming>
+                                        <interfaceOnly>true</interfaceOnly>
+                                        <serializableModel>true</serializableModel>
+                                        <useBeanValidation>true</useBeanValidation>
+                                        <performBeanValidation>true</performBeanValidation>
+                                    </configOptions>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

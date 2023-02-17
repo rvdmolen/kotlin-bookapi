@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.6</version>
+        <version>2.7.8</version>
     </parent>
 
     <groupId>com.codingmill</groupId>
@@ -21,16 +21,16 @@
     <modules>
         <module>common</module>
         <module>openapi</module>
+        <module>jpa</module>
+        <module>database</module>
         <module>web</module>
     </modules>
 
     <properties>
         <java.version>11</java.version>
-        <spring-boot.version>2.7.6</spring-boot.version>
         <open-api-generator.version>6.2.1</open-api-generator.version>
+        <h2.version>2.1.214</h2.version>
     </properties>
-
-    <dependencyManagement/>
 
     <dependencies>
         <dependency>
