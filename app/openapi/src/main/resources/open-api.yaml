@@ -41,12 +41,22 @@ paths:
                 $ref: "#/components/schemas/Error"
     post:
       summary: Create a book
-      operationId: createBooks
+      operationId: addBook
       tags:
         - books
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Book"
       responses:
-        '201':
-          description: Null response
+        '200':
+          description: Id of the new book
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookIdentifier"
         default:
           description: unexpected error
           content:
@@ -86,14 +96,29 @@ components:
       required:
         - id
         - name
+        - author
+        - category
+        - isbn
       properties:
         id:
           type: integer
           format: int64
         name:
           type: string
-        tag:
+        author:
           type: string
+        category:
+          type: string
+        isbn:
+          type: string
+    BookIdentifier:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          format: int64
     Books:
       type: array
       items:

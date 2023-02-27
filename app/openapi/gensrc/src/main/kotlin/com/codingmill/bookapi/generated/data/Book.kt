@@ -17,7 +17,9 @@ import io.swagger.v3.oas.annotations.media.Schema
  * 
  * @param id 
  * @param name 
- * @param tag 
+ * @param author 
+ * @param category 
+ * @param isbn 
  */
 data class Book(
 
@@ -27,8 +29,14 @@ data class Book(
     @Schema(example = "null", required = true, description = "")
     @field:JsonProperty("name", required = true) val name: kotlin.String,
 
-    @Schema(example = "null", description = "")
-    @field:JsonProperty("tag") val tag: kotlin.String? = null
+    @Schema(example = "null", required = true, description = "")
+    @field:JsonProperty("author", required = true) val author: kotlin.String,
+
+    @Schema(example = "null", required = true, description = "")
+    @field:JsonProperty("category", required = true) val category: kotlin.String,
+
+    @Schema(example = "null", required = true, description = "")
+    @field:JsonProperty("isbn", required = true) val isbn: kotlin.String
 ) {
 
 }

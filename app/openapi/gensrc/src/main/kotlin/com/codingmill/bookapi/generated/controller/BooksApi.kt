@@ -6,6 +6,7 @@
 package com.codingmill.bookapi.generated.controller
 
 import com.codingmill.bookapi.generated.data.Book
+import com.codingmill.bookapi.generated.data.BookIdentifier
 import com.codingmill.bookapi.generated.data.Error
 import io.swagger.v3.oas.annotations.*
 import io.swagger.v3.oas.annotations.enums.*
@@ -40,19 +41,20 @@ interface BooksApi {
 
     @Operation(
         summary = "Create a book",
-        operationId = "createBooks",
+        operationId = "addBook",
         description = "",
         responses = [
-            ApiResponse(responseCode = "201", description = "Null response"),
+            ApiResponse(responseCode = "200", description = "Id of the new book", content = [Content(schema = Schema(implementation = BookIdentifier::class))]),
             ApiResponse(responseCode = "200", description = "unexpected error", content = [Content(schema = Schema(implementation = Error::class))])
         ]
     )
     @RequestMapping(
             method = [RequestMethod.POST],
             value = ["/books"],
-            produces = ["application/json"]
+            produces = ["application/json"],
+            consumes = ["application/json"]
     )
-    fun createBooks(): ResponseEntity<Unit> {
+    fun addBook(@Parameter(description = "", required = true) @Valid @RequestBody book: Book): ResponseEntity<BookIdentifier> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
