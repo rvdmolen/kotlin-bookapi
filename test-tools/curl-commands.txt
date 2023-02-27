@@ -9,9 +9,9 @@ Books Controller: |
 CREATE BOOK:
 ==============
 curl -i \
--d '{"id":null, "name":"Build Restful APIs using Kotlin and SpringBoot", "category": "Development"}' \
+-d '{"id":null, "name":"Build Restful APIs using Kotlin and SpringBoot", "category": "Development", "author": "RvdMolen", "isbn": "1234-1234"}' \
 -H "Content-Type: application/json" \
--X POST http://localhost:8080/v1/books
+-X POST http://localhost:8080/books
 
 
 curl -i \
