@@ -1,0 +1,1 @@
+curl -i -w '\n' -X DELETE http://localhost:8080/books/1

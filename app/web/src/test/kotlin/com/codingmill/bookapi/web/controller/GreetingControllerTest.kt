@@ -2,8 +2,8 @@ package com.codingmill.bookapi.web.controller
 
 import com.codingmill.bookapi.web.services.GreetingService
 import org.junit.jupiter.api.Test
+import org.mockito.BDDMockito.given
 import org.mockito.kotlin.any
-import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
@@ -21,7 +21,7 @@ class GreetingControllerTest {
 
     @Test
     fun `test retrieving Greeting`() {
-        whenever(greetingService.retrieveGreeting(any())).thenReturn("dummy")
+        given(greetingService.retrieveGreeting(any())).willAnswer { "dummy" }
 
         val name = "richard"
         mockMvc.get("/hello/$name").andExpect {

@@ -1,1 +1,1 @@
-curl -i http://localhost:8080/books
+curl -i -w '\n' http://localhost:8080/books/2

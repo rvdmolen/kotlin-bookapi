@@ -31,3 +31,25 @@
 ```bash
 mvn -f web spring-boot:run
 ```
+
+
+## Running Unit Tests
+
+We can run our unit tests by using the Maven Surefire plugin. When we want to run
+our unit tests, we have to run the following command at command prompt:
+
+    mvn clean test
+
+## Running Integration Tests
+
+We can run our integration tests by using the Maven Failsafe plugin. When we want to
+run our integration tests, we have to run the following command at command prompt:
+
+    mvn clean verify -P integration-test
+
+## Running All Tests
+
+When we want to run both unit and integration tests, we have to run the following
+command at command prompt:
+
+    mvn clean verify -P all-tests

@@ -59,6 +59,24 @@ interface BooksApi {
     }
 
     @Operation(
+        summary = "Delete a specific book",
+        operationId = "deleteBookById",
+        description = "",
+        responses = [
+            ApiResponse(responseCode = "204", description = "No Content"),
+            ApiResponse(responseCode = "200", description = "unexpected error", content = [Content(schema = Schema(implementation = Error::class))])
+        ]
+    )
+    @RequestMapping(
+            method = [RequestMethod.DELETE],
+            value = ["/books/{bookId}"],
+            produces = ["application/json"]
+    )
+    fun deleteBookById(@Parameter(description = "The id of the book to retrieve", required = true) @PathVariable("bookId") bookId: kotlin.String): ResponseEntity<Unit> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+    @Operation(
         summary = "List all books",
         operationId = "listBooks",
         description = "",

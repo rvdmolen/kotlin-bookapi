@@ -18,15 +18,25 @@ class BooksController(val booksService: BooksService) : BooksApi {
 
     override fun listBooks(limit: Int?): ResponseEntity<List<Book>> {
         logger.info { "GET all books" }
-        val result = emptyList<Book>()
-        return ResponseEntity.ok().body(result);
+        val result = booksService.getAllBooks()
+        return ResponseEntity.ok().body(result)
     }
 
     override fun addBook(book: Book): ResponseEntity<BookIdentifier> {
         logger.info { "POST create book" }
         val result = booksService.createBook(book)
-        return ResponseEntity.ok().body(result);
+        return ResponseEntity.ok().body(result)
     }
 
+    override fun showBookById(bookId: String): ResponseEntity<Book> {
+        logger.info { "GET book by id" }
+        val result = booksService.getBookById(bookId)
+        return ResponseEntity.ok().body(result)
+    }
 
+    override fun deleteBookById(bookId: String): ResponseEntity<Unit> {
+        logger.info { "DELETE book" }
+        booksService.deleteBookById(bookId)
+        return ResponseEntity.noContent().build()
+    }
 }
