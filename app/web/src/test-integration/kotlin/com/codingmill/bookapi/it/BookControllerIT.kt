@@ -1,6 +1,8 @@
 package com.codingmill.bookapi.it
 
 import com.codingmill.bookapi.generated.data.Book
+import com.codingmill.bookapi.generated.data.BookIdentifier
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
@@ -24,20 +26,23 @@ class BookapiApplicationTests {
     fun `test retrieving Greeting`() {
         val name = "richard"
         val result = restTemplate.getForEntity("/hello/$name", String::class.java)
-        Assertions.assertNotNull(result)
-        Assertions.assertEquals("Hello $name, Hello from the default profile", result.body)
-        Assertions.assertEquals(HttpStatus.OK, result?.statusCode)
+        Assertions.assertAll(
+            { Assertions.assertNotNull(result) },
+            { Assertions.assertEquals("Hello $name, Hello from the default profile", result.body) },
+            { Assertions.assertEquals(HttpStatus.OK, result?.statusCode) }
+        )
     }
 
     @Test
     @Order(2)
     fun `test create book`() {
         val book = getBook()
-        val result = restTemplate.postForEntity("/books", book, String::class.java)
-
-        Assertions.assertNotNull(result)
-        Assertions.assertEquals("{\"id\":1}", result.body)
-        Assertions.assertEquals(HttpStatus.OK, result?.statusCode)
+        val result = restTemplate.postForEntity("/books", book, BookIdentifier::class.java)
+        Assertions.assertAll(
+            { Assertions.assertNotNull(result) },
+            { Assertions.assertEquals(1, result.body?.id) },
+            { Assertions.assertEquals(HttpStatus.OK, result?.statusCode) }
+        )
     }
 
 
