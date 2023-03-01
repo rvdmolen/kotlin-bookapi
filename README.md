@@ -1,5 +1,7 @@
 # BookAPI Kotlin springboot application
 
+In this application, I am making a simple RestFul API with Spring Boot and Kotlin with the basic CRUD functionality. Here I am using M2 in memory as a database. You can clone this project as Open in IntelliJ IDEA start the application, will have the backend up and running at port 8080 in no time. Kotlin makes it so easy to spring up a backend. Spring applications created using Kotlin, when compared to those created using Java, are concise and easier to maintain. Kotlin is a first-class language for programming Spring applications.
+
 ## Setup Project
 
 1. Switch to **develop** branch:
