@@ -2,14 +2,14 @@ package com.codingmill.bookapi.it
 
 import com.codingmill.bookapi.generated.data.Book
 import com.codingmill.bookapi.generated.data.BookIdentifier
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.codingmill.bookapi.web.exceptionhandler.BookAPIError
 import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.http.HttpStatus
-
+import com.codingmill.bookapi.generated.data.Error
 
 class BooksList : MutableList<Book> by ArrayList()
 
@@ -72,7 +72,18 @@ class BookapiApplicationTests {
     }
 
     @Test
-    @Order(5)
+    fun `get book by id failure`() {
+        val expectation = BookAPIError.BOOK_NOT_FOUND_ERROR
+        val result = restTemplate.getForEntity("/books/999", Error::class.java)
+        Assertions.assertAll(
+            { Assertions.assertNotNull(result) },
+            { Assertions.assertEquals(HttpStatus.NOT_FOUND, result?.statusCode) },
+            { Assertions.assertEquals(expectation.message , result?.body?.message) }
+        )
+    }
+
+    @Test
+    @Order(6)
     fun `delete book by id`() {
         val result = restTemplate.delete("/books/1");
         Assertions.assertNotNull(result)
@@ -81,7 +92,7 @@ class BookapiApplicationTests {
     private fun getBook() = Book(
         id = -1,
         name = "test book",
-        author = "wim",
+        author = "john",
         isbn = "1234-1234",
         category = "development"
     )
