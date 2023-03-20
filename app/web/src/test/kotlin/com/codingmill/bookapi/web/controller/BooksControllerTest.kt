@@ -1,14 +1,14 @@
 package com.codingmill.bookapi.web.controller
 
 
+import com.codingmill.bookapi.common.model.AuthorNotFoundException
 import com.codingmill.bookapi.common.model.BookAPITechnicalException
 import com.codingmill.bookapi.common.model.BookNotFoundException
-import com.codingmill.bookapi.generated.data.Book
-import com.codingmill.bookapi.generated.data.BookIdentifier
+import com.codingmill.bookapi.generated.data.BookDTO
+import com.codingmill.bookapi.generated.data.BookIdentifierDTO
 import com.codingmill.bookapi.web.exceptionhandler.BookAPIError
 import com.codingmill.bookapi.web.services.BooksService
 import com.fasterxml.jackson.databind.ObjectMapper
-import mu.KotlinLogging
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
@@ -41,7 +41,7 @@ class BooksControllerTest {
     @Test
     fun testCreateBook() {
         val input = getBook()
-        val expectation = BookIdentifier(1)
+        val expectation = BookIdentifierDTO(1)
 
         given(bookService.createBook(any())).willAnswer { expectation }
 
@@ -58,7 +58,7 @@ class BooksControllerTest {
 
     @Test
     fun testCreateBookValidationError() {
-        given(bookService.createBook(any())).willAnswer { BookIdentifier(1) }
+        given(bookService.createBook(any())).willAnswer { BookIdentifierDTO(1) }
         mockMvc.post("/books") {
             contentType = MediaType.APPLICATION_JSON
             content = ""
@@ -109,6 +109,16 @@ class BooksControllerTest {
     }
 
     @Test
+    fun testAuthorNotFound() {
+        val expectation = BookAPIError.AUTHOR_NOT_FOUND_ERROR
+        given(bookService.getBookById(any())).willThrow { AuthorNotFoundException() }
+        mockMvc.get("/books/10").andExpect {
+            status { isNotFound() }
+            content { json(mapper.writeValueAsString(expectation)) }
+        }
+    }
+
+    @Test
     fun deleteBookById() {
         given(bookService.deleteBookById(any())).willAnswer { }
         mockMvc.delete("/books/1").andExpect {
@@ -116,10 +126,10 @@ class BooksControllerTest {
         }
     }
 
-    private fun getBook() = Book(
+    private fun getBook() = BookDTO(
         id = -1,
         name = "test book",
-        author = "john",
+        author = 1,
         isbn = "1234-1234",
         category = "development"
     )

@@ -4,16 +4,20 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "Books")
-data class BookEntity (
+data class Book (
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long? =  null,
+    val bookId: Long? =  null,
 
     val name: String = "",
-    val author : String = "",
+
+    @ManyToOne(
+        fetch = FetchType.LAZY
+    )
+    @JoinColumn(name = "authorId", nullable = false)
+    val author : Author? = null,
+
     val isbn: String = "",
     val category: String = ""
-
-
 )

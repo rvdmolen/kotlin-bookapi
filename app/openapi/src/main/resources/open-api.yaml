@@ -32,13 +32,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Books"
+                $ref: "#/components/schemas/BooksDTO"
         default:
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/ErrorDTO"
     post:
       summary: Create a book
       operationId: addBook
@@ -49,20 +49,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Book"
+              $ref: "#/components/schemas/BookDTO"
       responses:
         '200':
           description: Id of the new book
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BookIdentifier"
+                $ref: "#/components/schemas/BookIdentifierDTO"
         default:
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/ErrorDTO"
   /books/{bookId}:
     get:
       summary: Info for a specific book
@@ -82,13 +82,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Book"
+                $ref: "#/components/schemas/BookDTO"
         default:
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/ErrorDTO"
     delete:
       summary: Delete a specific book
       operationId: deleteBookById
@@ -109,10 +109,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/ErrorDTO"
 components:
   schemas:
-    Book:
+    BookDTO:
       type: object
       required:
         - id
@@ -127,12 +127,13 @@ components:
         name:
           type: string
         author:
-          type: string
+          type: integer
+          format: int64
         category:
           type: string
         isbn:
           type: string
-    BookIdentifier:
+    BookIdentifierDTO:
       type: object
       required:
         - id
@@ -140,11 +141,11 @@ components:
         id:
           type: integer
           format: int64
-    Books:
+    BooksDTO:
       type: array
       items:
-        $ref: "#/components/schemas/Book"
-    Error:
+        $ref: "#/components/schemas/BookDTO"
+    ErrorDTO:
       type: object
       required:
         - code

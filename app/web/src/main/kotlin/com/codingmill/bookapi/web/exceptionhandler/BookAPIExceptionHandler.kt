@@ -1,5 +1,6 @@
 package com.codingmill.bookapi.web.exceptionhandler
 
+import com.codingmill.bookapi.common.model.AuthorNotFoundException
 import com.codingmill.bookapi.common.model.BookAPITechnicalException
 import com.codingmill.bookapi.common.model.BookNotFoundException
 import mu.KotlinLogging
@@ -47,5 +48,15 @@ class BookAPIExceptionHandler : ResponseEntityExceptionHandler() {
             .status(HttpStatus.NOT_FOUND)
             .body(BookAPIError.BOOK_NOT_FOUND_ERROR)
     }
+
+    @ExceptionHandler(AuthorNotFoundException::class)
+    fun handleAuthorNotFoundException(ex: Exception, request: WebRequest): ResponseEntity<Any> {
+        logger.error("AuthorNotFoundException observed : ${ex.message}")
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(BookAPIError.AUTHOR_NOT_FOUND_ERROR)
+    }
+
+
 }
 

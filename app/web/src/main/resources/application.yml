@@ -11,9 +11,11 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     generate-ddl: true
     show-sql: true
+    defer-datasource-initialization: true
   h2:
     console:
       enabled: true
+
 
 
 message: Hello from the default profile

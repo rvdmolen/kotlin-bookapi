@@ -5,9 +5,9 @@
 */
 package com.codingmill.bookapi.generated.controller
 
-import com.codingmill.bookapi.generated.data.Book
-import com.codingmill.bookapi.generated.data.BookIdentifier
-import com.codingmill.bookapi.generated.data.Error
+import com.codingmill.bookapi.generated.data.BookDTO
+import com.codingmill.bookapi.generated.data.BookIdentifierDTO
+import com.codingmill.bookapi.generated.data.ErrorDTO
 import io.swagger.v3.oas.annotations.*
 import io.swagger.v3.oas.annotations.enums.*
 import io.swagger.v3.oas.annotations.media.*
@@ -44,8 +44,8 @@ interface BooksApi {
         operationId = "addBook",
         description = "",
         responses = [
-            ApiResponse(responseCode = "200", description = "Id of the new book", content = [Content(schema = Schema(implementation = BookIdentifier::class))]),
-            ApiResponse(responseCode = "200", description = "unexpected error", content = [Content(schema = Schema(implementation = Error::class))])
+            ApiResponse(responseCode = "200", description = "Id of the new book", content = [Content(schema = Schema(implementation = BookIdentifierDTO::class))]),
+            ApiResponse(responseCode = "200", description = "unexpected error", content = [Content(schema = Schema(implementation = ErrorDTO::class))])
         ]
     )
     @RequestMapping(
@@ -54,7 +54,7 @@ interface BooksApi {
             produces = ["application/json"],
             consumes = ["application/json"]
     )
-    fun addBook(@Parameter(description = "", required = true) @Valid @RequestBody book: Book): ResponseEntity<BookIdentifier> {
+    fun addBook(@Parameter(description = "", required = true) @Valid @RequestBody bookDTO: BookDTO): ResponseEntity<BookIdentifierDTO> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
@@ -64,7 +64,7 @@ interface BooksApi {
         description = "",
         responses = [
             ApiResponse(responseCode = "204", description = "No Content"),
-            ApiResponse(responseCode = "200", description = "unexpected error", content = [Content(schema = Schema(implementation = Error::class))])
+            ApiResponse(responseCode = "200", description = "unexpected error", content = [Content(schema = Schema(implementation = ErrorDTO::class))])
         ]
     )
     @RequestMapping(
@@ -81,8 +81,8 @@ interface BooksApi {
         operationId = "listBooks",
         description = "",
         responses = [
-            ApiResponse(responseCode = "200", description = "A paged array of books", content = [Content(schema = Schema(implementation = Book::class))]),
-            ApiResponse(responseCode = "200", description = "unexpected error", content = [Content(schema = Schema(implementation = Error::class))])
+            ApiResponse(responseCode = "200", description = "A paged array of books", content = [Content(schema = Schema(implementation = BookDTO::class))]),
+            ApiResponse(responseCode = "200", description = "unexpected error", content = [Content(schema = Schema(implementation = ErrorDTO::class))])
         ]
     )
     @RequestMapping(
@@ -90,7 +90,7 @@ interface BooksApi {
             value = ["/books"],
             produces = ["application/json"]
     )
-    fun listBooks(@Parameter(description = "How many items to return at one time (max 100)") @Valid @RequestParam(value = "limit", required = false) limit: kotlin.Int?): ResponseEntity<List<Book>> {
+    fun listBooks(@Parameter(description = "How many items to return at one time (max 100)") @Valid @RequestParam(value = "limit", required = false) limit: kotlin.Int?): ResponseEntity<List<BookDTO>> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
@@ -99,8 +99,8 @@ interface BooksApi {
         operationId = "showBookById",
         description = "",
         responses = [
-            ApiResponse(responseCode = "200", description = "Expected response to a valid request", content = [Content(schema = Schema(implementation = Book::class))]),
-            ApiResponse(responseCode = "200", description = "unexpected error", content = [Content(schema = Schema(implementation = Error::class))])
+            ApiResponse(responseCode = "200", description = "Expected response to a valid request", content = [Content(schema = Schema(implementation = BookDTO::class))]),
+            ApiResponse(responseCode = "200", description = "unexpected error", content = [Content(schema = Schema(implementation = ErrorDTO::class))])
         ]
     )
     @RequestMapping(
@@ -108,7 +108,7 @@ interface BooksApi {
             value = ["/books/{bookId}"],
             produces = ["application/json"]
     )
-    fun showBookById(@Parameter(description = "The id of the book to retrieve", required = true) @PathVariable("bookId") bookId: kotlin.String): ResponseEntity<Book> {
+    fun showBookById(@Parameter(description = "The id of the book to retrieve", required = true) @PathVariable("bookId") bookId: kotlin.String): ResponseEntity<BookDTO> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 }

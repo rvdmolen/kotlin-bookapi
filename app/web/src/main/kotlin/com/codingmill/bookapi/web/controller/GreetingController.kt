@@ -17,10 +17,6 @@ private val logger = KotlinLogging.logger { }
 @Validated
 class GreetingController(private val greetingService: GreetingService) {
 
-//    private val logger = KotlinLogging.logger {}
-//    private val log = LoggerFactory.getLogger(GreetingController::class.java)
-
-
     @GetMapping("/hello/{name}")
     fun greetName(@PathVariable("name") name: String): String {
         logger.info { "GET greeting" }

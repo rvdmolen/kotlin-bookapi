@@ -15,16 +15,12 @@ import io.swagger.v3.oas.annotations.media.Schema
 
 /**
  * 
- * @param code 
- * @param message 
+ * @param id 
  */
-data class Error(
+data class BookIdentifierDTO(
 
     @Schema(example = "null", required = true, description = "")
-    @field:JsonProperty("code", required = true) val code: kotlin.Int,
-
-    @Schema(example = "null", required = true, description = "")
-    @field:JsonProperty("message", required = true) val message: kotlin.String
+    @field:JsonProperty("id", required = true) val id: kotlin.Long
 ) {
 
 }

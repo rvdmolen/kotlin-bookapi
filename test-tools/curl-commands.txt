@@ -1,6 +1,11 @@
 Greeting Controller:
 ====================
-curl -i http://localhost:8080/hello/richard 
+curl -s -i http://localhost:8080/hello/richard
+
+curl -s -i \
+-d '{"id":null, "message":""}' \
+-H "Content-Type: application/json" \
+-X POST http://localhost:8080/hello
 
 ===================
 Books Controller: |
@@ -8,24 +13,25 @@ Books Controller: |
 
 CREATE BOOK:
 ==============
-curl -i \
--d '{"id":null, "name":"Build Restful APIs using Kotlin and SpringBoot", "category": "Development", "author": "RvdMolen", "isbn": "1234-1234"}' \
+curl -s -i \
+-d '{"id":null, "name":"Build Restful APIs using Kotlin and SpringBoot", "category": "Development", "author": 1, "isbn": "1234-1234"}' \
 -H "Content-Type: application/json" \
 -X POST http://localhost:8080/books
 
 
-curl -i \
+curl -s -i \
 -d '{"id":null, "name":"Build Reactive Microservices using Spring WebFlux/SpringBoot ", "category": "Development"}' \
 -H "Content-Type: application/json" \
 -X POST http://localhost:8080/v1/books
 
 GET BOOKS:
 ==============
-curl -i http://localhost:8080/books
+curl -s -i http://localhost:8080/books
+curl -s -i http://localhost:8080/books/10
 
 UPDATE BOOK:
 ==============
-curl -i \
+curl -s -i \
 -d '{"id":null, "name":"Build Restful APIs using Kotlin & SpringBoot2", "category": "Development"}' \
 -H "Content-Type: application/json" \
 -X PUT http://localhost:8080/v1/books/1
@@ -33,7 +39,7 @@ curl -i \
 
 DELETE BOOK:
 ==============
-curl -i -X DELETE http://localhost:8080/v1/BOOKs/1
+curl -s -i -X DELETE http://localhost:8080/v1/BOOKs/1
 
 
 =======================
@@ -41,7 +47,7 @@ Instructor Controller: |
 =======================
 CREATE INSTRUCTOR:
 ==================
-curl -i \
+curl -s -i \
 -d '{"id":null, "name":"Dilip Sundarraj"}' \
 -H "Content-Type: application/json" \
 -X POST http://localhost:8080/v1/instructors
@@ -49,7 +55,7 @@ curl -i \
 
 CREATE BOOK WITH INSTRUCTOR:
 ==================
-curl -i \
+curl -s -i \
 -d '{"id":null, "name":"Build Restful APIs using Kotlin and SpringBoot", "category": "Development", "instructorId": 1}' \
 -H "Content-Type: application/json" \
 -X POST http://localhost:8080/v1/BOOKs

@@ -1,7 +1,7 @@
 package com.codingmill.bookapi.it
 
-import com.codingmill.bookapi.generated.data.Book
-import com.codingmill.bookapi.generated.data.BookIdentifier
+import com.codingmill.bookapi.generated.data.BookDTO
+import com.codingmill.bookapi.generated.data.BookIdentifierDTO
 import com.codingmill.bookapi.web.exceptionhandler.BookAPIError
 import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
@@ -9,9 +9,9 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.http.HttpStatus
-import com.codingmill.bookapi.generated.data.Error
+import com.codingmill.bookapi.generated.data.ErrorDTO
 
-class BooksList : MutableList<Book> by ArrayList()
+class BooksList : MutableList<BookDTO> by ArrayList()
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
@@ -37,7 +37,7 @@ class BookapiApplicationTests {
     @Order(2)
     fun `test create book`() {
         val book = getBook()
-        val result = restTemplate.postForEntity("/books", book, BookIdentifier::class.java)
+        val result = restTemplate.postForEntity("/books", book, BookIdentifierDTO::class.java)
         Assertions.assertAll(
             { Assertions.assertNotNull(result) },
             { Assertions.assertEquals(1, result.body?.id) },
@@ -63,7 +63,7 @@ class BookapiApplicationTests {
     @Order(4)
     fun `get book by id`() {
         val book = getBook()
-        val result = restTemplate.getForEntity("/books/1", Book::class.java)
+        val result = restTemplate.getForEntity("/books/1", BookDTO::class.java)
         Assertions.assertAll(
             { Assertions.assertNotNull(result) },
             { Assertions.assertEquals(HttpStatus.OK, result?.statusCode) },
@@ -89,10 +89,10 @@ class BookapiApplicationTests {
         Assertions.assertNotNull(result)
     }
 
-    private fun getBook() = Book(
+    private fun getBook() = BookDTO(
         id = -1,
         name = "test book",
-        author = "john",
+        author = 1,
         isbn = "1234-1234",
         category = "development"
     )
