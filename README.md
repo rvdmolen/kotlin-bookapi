@@ -55,3 +55,4 @@ When we want to run both unit and integration tests, we have to run the followin
 command at command prompt:
 
     mvn clean verify -P all-tests
+    
